@@ -88,3 +88,11 @@ SQLAlchemy==2.0.41
 flwr==1.19.0
 torch==2.7.1
 torchvision==0.22.1
+fpdf
+flwr==1.19.0
+streamlit
+pandas
+scikit-learn
+joblib
+fpdf
+supabase
