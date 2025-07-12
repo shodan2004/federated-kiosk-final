@@ -26,10 +26,17 @@ st.title("📊 Federated Training Dashboard")
 # Load data
 @st.cache_data(ttl=10)
 def load_data():
-    df = pd.read_sql("SELECT * FROM training_logs ORDER BY timestamp ASC", engine)
+    query = "SELECT * FROM training_logs ORDER BY timestamp ASC"
+    df = pd.read_sql(query, engine)
     return df
 
-df = load_data()
+try:
+    df = load_data()
+except Exception as e:
+    st.error("⚠️ Failed to load training logs from Supabase.")
+    st.exception(e)
+    st.stop()
+
 
 # Filters
 kiosks = df["kiosk_id"].unique().tolist()
