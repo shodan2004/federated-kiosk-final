@@ -15,7 +15,7 @@ supabase = create_client(url, key)
 # --- Load ML Model for Medication Prediction ---
 @st.cache_resource
 def load_model():
-    model = joblib.load("med_model.pkl")        # Ensure these files are in your app folder
+    model = joblib.load("med_model.pkl")
     labelizer = joblib.load("med_labelizer.pkl")
     return model, labelizer
 
@@ -29,7 +29,7 @@ def predict_medications(data):
         "blood_oxygen": data["blood_oxygen"],
         "body_fat_percent": data["body_fat_percent"],
         "bmi": data["bmi"],
-        "label": data["label"],   # Add this line
+        "label": data["label"]
     }])
     preds = model.predict(X)
     meds = labelizer.inverse_transform(preds)
@@ -42,7 +42,6 @@ def is_critical(v):
         v["blood_oxygen"] < 90
     )
 
-# --- BMI category ---
 def bmi_category(bmi):
     if bmi < 18.5:
         return "Underweight"
@@ -53,7 +52,6 @@ def bmi_category(bmi):
     else:
         return "Obese"
 
-# --- PDF report generation ---
 def generate_pdf_report(data, meds):
     pdf = FPDF()
     pdf.add_page()
@@ -70,6 +68,7 @@ def generate_pdf_report(data, meds):
 # --- Vitals entry form ---
 st.title("📥 Enter Patient Vitals")
 with st.form("vitals_form"):
+    name = st.text_input("Patient Name")
     height = st.number_input("Height (cm)", 50.0, 250.0)
     weight = st.number_input("Weight (kg)", 10.0, 300.0)
     temperature = st.number_input("Temperature (°C)", 30.0, 45.0)
@@ -84,6 +83,7 @@ if submit:
     timestamp = datetime.now(timezone.utc).isoformat()
 
     data = {
+        "name": name,
         "height": height,
         "weight": weight,
         "temperature": temperature,

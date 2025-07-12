@@ -20,4 +20,6 @@ Monitor federated learning performance across all kiosk clients.
 ---
 
 This platform connects patient-facing data entry with live AI model training and monitoring using federated learning principles.
+
+➡️ **TIf you unable to find vitals entry and training logs, click the `>>` icon in the top-left corner of the page.**
 """)
