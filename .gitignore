@@ -1,6 +1,14 @@
-venv/
-data/
-*.tar.gz
-*.so
-*.pack
+# Ignore Python cache files
 __pycache__/
+*.pyc
+
+# Ignore virtual environments
+venv/
+.venv/
+
+# Ignore system/IDE files
+.DS_Store
+.vscode/
+
+# Ignore generated files
+*.pdf
